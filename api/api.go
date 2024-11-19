@@ -49,7 +49,7 @@ func main() {
 	var cfg config
 
 	flag.IntVar(&cfg.port, "port", 4001, "Server port to listen on")
-	flag.StringVar(&cfg.env, "env", "development", "Application environment {development | production | maintenance}")
+	flag.StringVar(&cfg.env, "env", "development", "Application enviornment {development|production|maintenance}")
 
 	flag.Parse()
 

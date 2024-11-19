@@ -8,7 +8,6 @@ import (
 )
 
 func (app *application) routes() http.Handler {
-
 	mux := chi.NewRouter()
 
 	mux.Use(cors.Handler(cors.Options{
@@ -18,6 +17,8 @@ func (app *application) routes() http.Handler {
 		AllowCredentials: false,
 		MaxAge:           300,
 	}))
+
+	mux.Get("/api/payment-intent", app.GetPaymentIntent)
 
 	return mux
 }
