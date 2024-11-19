@@ -68,7 +68,10 @@
 
         stripe = Stripe('pk_test_51PhZZpBpe2hxNkfKmopJgQ00fOmGeZLwYxMHe0ipL5yYZpkHycKmQ27ucppmviDllB334xkptwuWLJz12GOkt3nG00q1D0euZe');
 
-
+        function hidePayButton() {
+            payButton.classList.add("d-none");
+            processing.classList.remove("d-none");
+        }
 
         function val() {
             let form = document.getElementById("charge_form");
@@ -80,7 +83,7 @@
             }
 
             form.classList.add("was-validated");
-
+            hidePayButton();
         }
 
         (function () {
