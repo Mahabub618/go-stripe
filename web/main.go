@@ -8,6 +8,8 @@ import (
 	"net/http"
 	"os"
 	"time"
+
+	"github.com/joho/godotenv"
 )
 
 const version = "1.0.0"
@@ -50,6 +52,7 @@ func (app *application) serve() error {
 }
 
 func main() {
+	godotenv.Load()
 	var cfg config
 
 	flag.IntVar(&cfg.port, "port", 4000, "Server port to listen on")
