@@ -9,7 +9,7 @@
 <hr>
 
 <div class="alert alert-danger text-center d-none" id = "card-messages"></div>
-<form action="/payment-succeded" method="post"
+<form action="/payment-succeeded" method="post"
     name="charge_form" id="charge_form"
     class="d-block needs-validation charge-form"
     autocomplete="off" novalidate="">
@@ -129,7 +129,6 @@
             fetch("http://localhost:4001/api/payment-intent", requestOptions)
                 .then(response => response.json())
                 .then(data => {
-                console.log("#255 data", data);
                     try {
                         stripe.confirmCardPayment(data.client_secret, {
                             payment_method: {
@@ -153,7 +152,7 @@
 
                                     processing.classList.add("d-none");
                                     showCardSuccess();
-                                    // would submit the form
+                                    document.getElementById("charge_form").submit();
                                     
                                 }
                             }
