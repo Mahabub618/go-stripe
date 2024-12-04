@@ -1,8 +1,10 @@
 package main
 
 import (
-	"myapp/cmd/internal/models"
 	"net/http"
+	"strconv"
+
+	"github.com/go-chi/chi/v5"
 )
 
 func (app *application) VirtualTerminal(w http.ResponseWriter, r *http.Request) {
@@ -45,24 +47,20 @@ func (app *application) PaymentSucceeded(w http.ResponseWriter, r *http.Request)
 }
 
 func (app *application) ChargeOnce(w http.ResponseWriter, r *http.Request) {
-	stringMap := make(map[string]string)
-	stringMap["publishable_key"] = app.config.stripe.key
-	stringMap["API"] = app.config.api
+	id := chi.URLParam(r, "id")
+	widgetID, _ := strconv.Atoi(id)
 
-	widget := models.Widget{
-		ID:             1,
-		Name:           "Widget",
-		Description:    "A very nice widget",
-		InventoryLevel: 10,
-		Price:          1000,
+	widget, err := app.DB.GetWidget(widgetID)
+	if err != nil {
+		app.errorLog.Println(err)
+		return
 	}
 
 	data := make(map[string]interface{})
 	data["widget"] = widget
 
 	if err := app.renderTemplate(w, r, "buy-once", &templateData{
-		StringMap: stringMap,
-		Data:      data,
+		Data: data,
 	}, "stripe-js"); err != nil {
 		app.errorLog.Println(err)
 	}
