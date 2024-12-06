@@ -76,7 +76,7 @@
                                 }
                             }
                         }).then(function(result) {
-                            if (result.error) {
+                            if (result.error) {    
                                 // card declined, or something went wrong with the card
                                 showCardError(result.error.message);
                                 showPayButtons();
